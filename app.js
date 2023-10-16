@@ -5,7 +5,7 @@ require("express-async-errors");
 const cloudinary = require("cloudinary").v2;
 
 // extra security packages
-const helmet = require("helmet");
+// const helmet = require("helmet");
 const cors = require("cors");
 const fileUpload = require("express-fileupload");
 const rateLimiter = require("express-rate-limit");
@@ -34,7 +34,7 @@ app.set("trust proxy", 1);
 app.use(express.json());
 app.use(fileUpload({ useTempFiles: true }));
 
-app.use(helmet());
+// app.use(helmet());
 app.use(cors());
 
 app.use("/api", jobroute);
