@@ -9,6 +9,8 @@ const {
   deleteJob,
   updateprofile,
   showStats,
+  LearderBoard,
+  CreateLearderBoard,
 } = require("../controllers/jobapi");
 const authenticationMiddleware = require("../middleware/auth");
 const rateLimiter = require("express-rate-limit");
@@ -43,6 +45,10 @@ router.route("/stats").get(showStats);
 router.route("/product").post(createProduct).get(getAllProducts);
 router.route("/uploads").post(uploadProductImage);
 router.route("/send").get(sendEmailEthereal);
+router
+  .route("/LearderBoard")
+  .get(LearderBoard)
+  .post(authenticationMiddleware, CreateLearderBoard);
 
 router
   .route("/:id")

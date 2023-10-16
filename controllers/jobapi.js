@@ -6,8 +6,10 @@ const Job = require("../models/Job");
 
 const mongoose = require("mongoose");
 const moment = require("moment");
+const Leaderboard = require("../models/Leaderboard");
 
 const register = async (req, res) => {
+  console.log(req.body);
   const user = await MainUser.create({ ...req.body });
   const token = user.createJWT();
 
@@ -41,6 +43,35 @@ const login = async (req, res) => {
   const token = User.createJWT();
 
   res.status(StatusCodes.OK).json({ msg: User, token });
+};
+
+const LearderBoard = async (req, res) => {
+  const { email, password } = req.body;
+
+  const leaderboard = await Leaderboard.find().populate({
+    path: "User",
+    model: "MainUser",
+    select: "name email",
+  });
+  res.status(StatusCodes.OK).json({ data: leaderboard });
+};
+
+const CreateLearderBoard = async (req, res) => {
+  try {
+    const { userScore } = req.body; // Assuming the request body contains user and userScore data
+    let userid = req.user.userId;
+
+    const leaderboardEntry = await Leaderboard.create({
+      User: userid,
+      userScore,
+    });
+
+    res.status(201).json(leaderboardEntry);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ error: "An error occurred while creating a leaderboard entry" });
+  }
 };
 
 const updateprofile = async (req, res) => {
@@ -264,4 +295,6 @@ module.exports = {
   deleteJob,
   updateprofile,
   showStats,
+  LearderBoard,
+  CreateLearderBoard,
 };
