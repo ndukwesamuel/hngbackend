@@ -1,9 +1,7 @@
 const { BadRequestError, UnauthenticatedError } = require("../errors");
 const MainUser = require("../models/MainUser");
 const { StatusCodes } = require("http-status-codes");
-const Job = require("../models/Job");
-const mongoose = require("mongoose");
-const moment = require("moment");
+
 const Leaderboard = require("../models/Leaderboard");
 
 const register = async (req, res) => {
@@ -28,19 +26,11 @@ const register = async (req, res) => {
 
     res.status(StatusCodes.CREATED).json({ user: newUser, token });
   } catch (error) {
+    console.log({ error });
     res
       .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .json({ message: "Registration failed" });
+      .json({ message: "Registration failed", error });
   }
-  // const user = await MainUser.create({ ...req.body });
-  // const token = user.createJWT();
-
-  // res.status(StatusCodes.CREATED).json({
-  //   user: {
-  //     email: user.email,
-  //     name: user.name,
-  //   },
-  // });
 };
 
 const login = async (req, res) => {
@@ -71,9 +61,10 @@ const login = async (req, res) => {
 
     res.status(StatusCodes.OK).json({ msg: User, token });
   } catch (error) {
+    console.log({ error });
     res
       .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .json({ message: "Login failed" });
+      .json({ message: "Login failed", error });
   }
 };
 
