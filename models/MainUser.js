@@ -8,6 +8,7 @@ const UserSchema = new mongoose.Schema({
     required: [true, "Please provide name"],
     maxlength: 50,
     minlength: 3,
+    unique: true,
   },
   email: {
     type: String,
@@ -22,6 +23,15 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please provide password"],
     minlength: 6,
+  },
+
+  totalScore: {
+    type: Number,
+    default: 0,
+  },
+  level: {
+    type: Number,
+    default: 0,
   },
 });
 
