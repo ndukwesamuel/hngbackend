@@ -1,9 +1,7 @@
 const { BadRequestError, UnauthenticatedError } = require("../errors");
 const MainUser = require("../models/MainUser");
 const { StatusCodes } = require("http-status-codes");
-
 const Job = require("../models/Job");
-
 const mongoose = require("mongoose");
 const moment = require("moment");
 const Leaderboard = require("../models/Leaderboard");

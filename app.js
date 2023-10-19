@@ -37,6 +37,11 @@ app.use(fileUpload({ useTempFiles: true }));
 // app.use(helmet());
 app.use(cors());
 
+app.get("/", (req, res) => {
+  res.json({
+    message: "Hello World",
+  });
+});
 app.use("/api", jobroute);
 
 // this main route should be above
