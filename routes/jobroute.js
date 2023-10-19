@@ -11,7 +11,8 @@ const {
   showStats,
   LearderBoard,
   CreateLearderBoard,
-} = require("../controllers/jobapi");
+  Global_leaderboard,
+} = require("../controllers/GameAPI");
 const authenticationMiddleware = require("../middleware/auth");
 const rateLimiter = require("express-rate-limit");
 const {
@@ -32,15 +33,8 @@ const apiLimiter = rateLimiter({
   },
 });
 
-router
-  .route("/")
-  .get(authenticationMiddleware, GetAllJobs)
-  .post(authenticationMiddleware, CreateJob);
-
 router.post("/register", apiLimiter, register);
 router.post("/login", apiLimiter, login);
-router.route("/profile").patch(authenticationMiddleware, updateprofile);
-router.route("/stats").get(showStats);
 
 router.route("/product").post(createProduct).get(getAllProducts);
 router.route("/uploads").post(uploadProductImage);
@@ -51,9 +45,8 @@ router
   .post(authenticationMiddleware, CreateLearderBoard);
 
 router
-  .route("/:id")
-  .get(authenticationMiddleware, GetJob)
-  .patch(authenticationMiddleware, UpdateJob)
-  .delete(deleteJob);
+  .route("/LearderBoard")
+  .get(Global_leaderboard)
+  .post(authenticationMiddleware, CreateLearderBoard);
 
 module.exports = router;
