@@ -119,7 +119,6 @@ const CreateLearderBoard = async (req, res) => {
 module.exports = {
   register,
   login,
-
   LearderBoard,
   Global_leaderboard,
   CreateLearderBoard,
